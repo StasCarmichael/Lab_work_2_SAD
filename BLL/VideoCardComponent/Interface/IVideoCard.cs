@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace BLL.VideoCardComponent.Interface
 {
-    interface IVideoCard
+    public interface IVideoCard
     {
+        string ModelName { get; }
+
+
+        int AmountVideoMemory { get; }
+        int GPUPower { get; }
+
+
+        bool CanPlayGame();
+        bool CanWatchVideo();
+        bool CanSearchInternet();
+
     }
 }

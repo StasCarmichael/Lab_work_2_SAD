@@ -45,6 +45,8 @@
     <Compile Include="BatteryComponent\Class\MidleBattery.cs" />
     <Compile Include="BatteryComponent\Class\SmallBattery.cs" />
     <Compile Include="BatteryComponent\Interface\IBattery.cs" />
+    <Compile Include="MemoryComponent\Abstract\ROMMemory.cs" />
+    <Compile Include="MemoryComponent\Interface\IROMMemory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoundHeadsetComponent\Class\Headphones.cs" />
     <Compile Include="SoundHeadsetComponent\Class\Speaker.cs" />
@@ -54,7 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ComputerSubsystem\" />
-    <Folder Include="MemoryComponent\" />
+    <Folder Include="MemoryComponent\Class\" />
     <Folder Include="SmartphoneSubsystem\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
