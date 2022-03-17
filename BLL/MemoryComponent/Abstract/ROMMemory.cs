@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BLL.MemoryComponent.Interface;
 
 namespace BLL.MemoryComponent.Abstract
 {
-    class ROMMemory
+    public class ROMMemory
     {
+
+
     }
 }

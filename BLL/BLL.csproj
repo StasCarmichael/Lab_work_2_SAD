@@ -45,6 +45,8 @@
     <Compile Include="BatteryComponent\Class\MidleBattery.cs" />
     <Compile Include="BatteryComponent\Class\SmallBattery.cs" />
     <Compile Include="BatteryComponent\Interface\IBattery.cs" />
+    <Compile Include="ComputerPrograms\Class\BaseComputerProgram.cs" />
+    <Compile Include="ComputerPrograms\Interface\IComputerProgram.cs" />
     <Compile Include="MemoryComponent\Abstract\ROMMemory.cs" />
     <Compile Include="MemoryComponent\Interface\IROMMemory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
