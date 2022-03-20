@@ -48,6 +48,8 @@
     <Compile Include="ComputerPrograms\Class\BaseComputerProgram.cs" />
     <Compile Include="ComputerPrograms\Interface\IComputerProgram.cs" />
     <Compile Include="MemoryComponent\Abstract\ROMMemory.cs" />
+    <Compile Include="MemoryComponent\Class\HDD.cs" />
+    <Compile Include="MemoryComponent\Class\SSD.cs" />
     <Compile Include="MemoryComponent\Interface\IROMMemory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoundHeadsetComponent\Class\Headphones.cs" />
@@ -58,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ComputerSubsystem\" />
-    <Folder Include="MemoryComponent\Class\" />
     <Folder Include="SmartphoneSubsystem\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
