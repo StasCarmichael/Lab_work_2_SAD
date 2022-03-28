@@ -1,33 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BLL.BatteryComponent.Interface;
 using BLL.ComputerPrograms.Interface;
-using BLL.ComputerSubsystem.Interface;
 using BLL.MemoryComponent.Interface;
+using BLL.SmartphoneSubsystem.Interface;
 using BLL.SoundHeadsetComponent.Interface;
 using BLL.VideoCardComponent.Interface;
 
-
-namespace BLL.ComputerSubsystem.Class
+namespace BLL.SmartphoneSubsystem.Class
 {
-    public class Computer : IComputer
+    public class Smartphone : ISmartphone
     {
+        IBattery battery;
         ISoundHeadset soundHeadset;
         IVideoCard videoCard;
         IROMMemory ROMMemory;
 
 
-        public Computer(string modelName, ISoundHeadset soundHeadset, IVideoCard videoCard, IROMMemory ROMMemory)
+        public string ModelName => throw new NotImplementedException();
+
+
+        public int MaxAmountCharge => throw new NotImplementedException();
+        public int CurrentAmountCharge => throw new NotImplementedException();
+        public void Charge()
         {
-            ModelName = modelName;
-            this.soundHeadset = soundHeadset;
-            this.videoCard = videoCard;
-            this.ROMMemory = ROMMemory;
+            throw new NotImplementedException();
         }
-
-
-        public string ModelName { get; private set; }
-
 
         public IVideoCard GetVideoCardInfo() { return videoCard; }
         public IROMMemory OpenRomMemory() { return ROMMemory; }
@@ -75,6 +76,10 @@ namespace BLL.ComputerSubsystem.Class
 
             return false;
         }
+        public bool SetNewBattery(IBattery battery)
+        {
+            throw new NotImplementedException();
+        }
 
 
 
@@ -98,6 +103,7 @@ namespace BLL.ComputerSubsystem.Class
         {
             throw new NotImplementedException();
         }
+
 
     }
 }
