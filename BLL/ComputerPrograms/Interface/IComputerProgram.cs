@@ -7,5 +7,7 @@
 
         bool NeedInternet { get; }
         bool NeedHeadset { get; }
+
+        bool IsGame { get; }
     }
 }

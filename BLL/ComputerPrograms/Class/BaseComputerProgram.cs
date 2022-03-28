@@ -11,12 +11,13 @@ namespace BLL.ComputerPrograms.Class
         private int size;
 
 
-        public BaseComputerProgram(string name, int size, bool needInternet, bool needHeadset)
+        public BaseComputerProgram(string name, int size, bool needInternet, bool needHeadset, bool isGame)
         {
             Name = name;
             Size = size;
             NeedInternet = needInternet;
             NeedHeadset = needHeadset;
+            IsGame = isGame;
         }
 
 
@@ -35,5 +36,9 @@ namespace BLL.ComputerPrograms.Class
 
         public bool NeedInternet { get; private set; }
         public bool NeedHeadset { get; private set; }
+
+
+        public bool IsGame { get; private set; }
+
     }
 }
