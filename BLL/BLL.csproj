@@ -47,10 +47,12 @@
     <Compile Include="BatteryComponent\Interface\IBattery.cs" />
     <Compile Include="ComputerPrograms\Class\BaseComputerProgram.cs" />
     <Compile Include="ComputerPrograms\Interface\IComputerProgram.cs" />
+    <Compile Include="ComputerSubsystem\Class\Computer.cs" />
     <Compile Include="ComputerSubsystem\Interface\IComputer.cs" />
     <Compile Include="IElectronicComponentSubsystem\IBatteryable.cs" />
     <Compile Include="IElectronicComponentSubsystem\IMemoryable.cs" />
     <Compile Include="IElectronicComponentSubsystem\ISoundHeadsetable.cs" />
+    <Compile Include="IElectronicComponentSubsystem\IVideoCardable.cs" />
     <Compile Include="IElectronicComponentSubsystem\IWatchable.cs" />
     <Compile Include="MemoryComponent\Abstract\ROMMemory.cs" />
     <Compile Include="MemoryComponent\Class\HDD.cs" />
@@ -64,7 +66,6 @@
     <Compile Include="VideoCardComponent\Interface\IVideoCard.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ComputerSubsystem\Class\" />
     <Folder Include="SmartphoneSubsystem\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

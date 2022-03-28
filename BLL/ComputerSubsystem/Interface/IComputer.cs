@@ -7,7 +7,7 @@ using BLL.IElectronicComponentSubsystem;
 
 namespace BLL.ComputerSubsystem.Interface
 {
-    interface IComputer
+    public interface IComputer : IWatchable, ISoundHeadsetable, IMemoryable, IBatteryable, IVideoCardable
     {
 
     }
