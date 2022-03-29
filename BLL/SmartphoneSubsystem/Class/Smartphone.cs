@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BLL.BatteryComponent.Interface;
 using BLL.ComputerPrograms.Interface;
+using BLL.EventArgs;
 using BLL.MemoryComponent.Interface;
 using BLL.SmartphoneSubsystem.Interface;
 using BLL.SoundHeadsetComponent.Interface;
@@ -20,11 +21,26 @@ namespace BLL.SmartphoneSubsystem.Class
         IROMMemory ROMMemory;
 
 
+        public event EventHandler<LoggerArgs> Logger;
+        public event EventHandler<ErrorArgs> Error;
+        public event EventHandler<ResultArgs> Result;
+
+        public Smartphone()
+        {
+
+        }
+
+
         public string ModelName => throw new NotImplementedException();
 
 
         public int MaxAmountCharge => throw new NotImplementedException();
         public int CurrentAmountCharge => throw new NotImplementedException();
+
+
+        public bool ElectricalConnections { get; set; }
+
+
         public void Charge()
         {
             throw new NotImplementedException();
