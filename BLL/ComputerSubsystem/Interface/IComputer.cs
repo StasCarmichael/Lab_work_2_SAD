@@ -3,7 +3,7 @@ using BLL.EventArgs;
 
 namespace BLL.ComputerSubsystem.Interface
 {
-    public interface IComputer : IWatchable, IElectricalConnectable, ISoundHeadsetable, IMemoryable, IVideoCardable, IEventLoggerable
+    public interface IComputer : IWatchable, IElectricalConnectable, IInternetConnectable, ISoundHeadsetable, IMemoryable, IVideoCardable, IEventLoggerable
     {
         string ModelName { get; }
     }

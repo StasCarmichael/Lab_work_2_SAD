@@ -55,6 +55,7 @@
     <Compile Include="EventArgs\LoggerArgs.cs" />
     <Compile Include="EventArgs\ResultArgs.cs" />
     <Compile Include="IElectronicComponentSubsystem\IBatteryable.cs" />
+    <Compile Include="IElectronicComponentSubsystem\IInternetConnectable.cs" />
     <Compile Include="IElectronicComponentSubsystem\IMemoryable.cs" />
     <Compile Include="IElectronicComponentSubsystem\ISoundHeadsetable.cs" />
     <Compile Include="IElectronicComponentSubsystem\IVideoCardable.cs" />
