@@ -9,6 +9,6 @@ namespace BLL.IElectronicComponentSubsystem
 
         int MaxAmountCharge { get; }
         int CurrentAmountCharge { get; }
-        void Charge();
+        bool Charge();
     }
 }

@@ -24,6 +24,17 @@ namespace BLL.ComputerSubsystem.Class
         #endregion
 
 
+        #region ServiceMethod
+
+        private void NoConnection()
+        {
+            Logger?.Invoke(this, new LoggerArgs("Комп'ютер не підключений до мережі", ActionResult.Error));
+            Error?.Invoke(this, new ErrorArgs("Комп'ютер не підключений до мережі", 50, null));
+        }
+
+        #endregion
+
+
         //Event
         public event EventHandler<LoggerArgs> Logger;
         public event EventHandler<ErrorArgs> Error;
@@ -163,11 +174,9 @@ namespace BLL.ComputerSubsystem.Class
 
                 return false;
             }
-
         }
         public bool RemoveProgram(string programName)
         {
-
             var result = ROMMemory.RemoveProgram(programName);
 
             if (result)
@@ -267,9 +276,7 @@ namespace BLL.ComputerSubsystem.Class
             }
             else
             {
-                Logger?.Invoke(this, new LoggerArgs("Комп'ютер не підключений до мережі", ActionResult.Error));
-                Error?.Invoke(this, new ErrorArgs("Комп'ютер не підключений до мережі", 50, null));
-
+                NoConnection();
                 return false;
             }
         }
@@ -294,9 +301,7 @@ namespace BLL.ComputerSubsystem.Class
             }
             else
             {
-                Logger?.Invoke(this, new LoggerArgs("Комп'ютер не підключений до мережі", ActionResult.Error));
-                Error?.Invoke(this, new ErrorArgs("Комп'ютер не підключений до мережі", 50, null));
-
+                NoConnection();
                 return false;
             }
         }
@@ -321,9 +326,7 @@ namespace BLL.ComputerSubsystem.Class
             }
             else
             {
-                Logger?.Invoke(this, new LoggerArgs("Комп'ютер не підключений до мережі", ActionResult.Error));
-                Error?.Invoke(this, new ErrorArgs("Комп'ютер не підключений до мережі", 50, null));
-
+                NoConnection();
                 return false;
             }
         }
@@ -388,9 +391,7 @@ namespace BLL.ComputerSubsystem.Class
             }
             else
             {
-                Logger?.Invoke(this, new LoggerArgs("Комп'ютер не підключений до мережі", ActionResult.Error));
-                Error?.Invoke(this, new ErrorArgs("Комп'ютер не підключений до мережі", 50, null));
-
+                NoConnection();
                 return false;
             }
         }
@@ -455,9 +456,7 @@ namespace BLL.ComputerSubsystem.Class
             }
             else
             {
-                Logger?.Invoke(this, new LoggerArgs("Комп'ютер не підключений до мережі", ActionResult.Error));
-                Error?.Invoke(this, new ErrorArgs("Комп'ютер не підключений до мережі", 50, null));
-
+                NoConnection();
                 return false;
             }
         }
