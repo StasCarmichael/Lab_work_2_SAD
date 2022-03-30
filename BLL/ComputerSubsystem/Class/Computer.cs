@@ -147,59 +147,44 @@ namespace BLL.ComputerSubsystem.Class
         //ready
         public bool InstallProgram(IComputerProgram computerProgram)
         {
-            if (ROMMemory != null)
+            var result = ROMMemory.InstallProgram(computerProgram);
+
+            if (result)
             {
-                var result = ROMMemory.InstallProgram(computerProgram);
+                Logger?.Invoke(this, new LoggerArgs("Програма успішно встановлена", ActionResult.Result));
+                Result?.Invoke(this, new ResultArgs("Програма успішно встановлена"));
 
-                if (result)
-                {
-                    Logger?.Invoke(this, new LoggerArgs("Програма успішно встановлена", ActionResult.Result));
-                    Result?.Invoke(this, new ResultArgs("Програма успішно встановлена"));
+                return true;
+            }
+            else
+            {
+                Logger?.Invoke(this, new LoggerArgs("Програма НЕ встановлена", ActionResult.Error));
+                Error?.Invoke(this, new ErrorArgs("Програма НЕ встановлена", 10, computerProgram));
 
-                    return true;
-                }
-                else
-                {
-                    Logger?.Invoke(this, new LoggerArgs("Програма НЕ встановлена", ActionResult.Error));
-                    Error?.Invoke(this, new ErrorArgs("Програма НЕ встановлена", 10, computerProgram));
-
-                    return false;
-                }
+                return false;
             }
 
-
-            Logger?.Invoke(this, new LoggerArgs("Немає доступу до пам'яті комп'ютера", ActionResult.Error));
-            Error?.Invoke(this, new ErrorArgs("Немає доступу до пам'яті комп'ютера", 50, ROMMemory));
-
-            return false;
         }
         public bool RemoveProgram(string programName)
         {
-            if (ROMMemory != null)
+
+            var result = ROMMemory.RemoveProgram(programName);
+
+            if (result)
             {
-                var result = ROMMemory.RemoveProgram(programName);
+                Logger?.Invoke(this, new LoggerArgs("Програма успішно видалена", ActionResult.Result));
+                Result?.Invoke(this, new ResultArgs("Програма успішно видалена"));
 
-                if (result)
-                {
-                    Logger?.Invoke(this, new LoggerArgs("Програма успішно видалена", ActionResult.Result));
-                    Result?.Invoke(this, new ResultArgs("Програма успішно видалена"));
+                return true;
+            }
+            else
+            {
+                Logger?.Invoke(this, new LoggerArgs("Дана програма не встановлена", ActionResult.Error));
+                Error?.Invoke(this, new ErrorArgs("Дана програма не встановлена", 6, ROMMemory.FindProgram(programName)));
 
-                    return true;
-                }
-                else
-                {
-                    Logger?.Invoke(this, new LoggerArgs("Дана програма не встановлена", ActionResult.Error));
-                    Error?.Invoke(this, new ErrorArgs("Дана програма не встановлена", 6, ROMMemory.FindProgram(programName)));
-
-                    return false;
-                }
+                return false;
             }
 
-
-            Logger?.Invoke(this, new LoggerArgs("Немає доступу до пам'яті комп'ютера", ActionResult.Error));
-            Error?.Invoke(this, new ErrorArgs("Немає доступу до пам'яті комп'ютера", 50, ROMMemory));
-
-            return false;
         }
 
         #endregion
@@ -302,7 +287,7 @@ namespace BLL.ComputerSubsystem.Class
                 else
                 {
                     Logger?.Invoke(this, new LoggerArgs("Відеокарта не підтримує можливість перегляду відео", ActionResult.Error));
-                    Error?.Invoke(this, new ErrorArgs("Відеокарта не підтримує можливість перегляду відео", 12, null));
+                    Error?.Invoke(this, new ErrorArgs("Відеокарта не підтримує можливість перегляду відео", 12, videoCard));
 
                     return false;
                 }
@@ -346,37 +331,57 @@ namespace BLL.ComputerSubsystem.Class
         {
             if (ElectricalConnections)
             {
-                if (ROMMemory.IsProgramInstalled(programName))
+                if (videoCard.CanPlayGame())
                 {
-                    if (!ROMMemory.FindProgram(programName).IsGame)
+                    if (ROMMemory.IsProgramInstalled(programName))
                     {
-                        if (ROMMemory.FindProgram(programName).NeedInternet && InternetConnection)
+                        if (!ROMMemory.FindProgram(programName).IsGame)
                         {
-                            Logger?.Invoke(this, new LoggerArgs("Програма успішно запущена", ActionResult.Result));
-                            Result?.Invoke(this, new ResultArgs("Програма успішно запущена"));
+                            if (ROMMemory.FindProgram(programName).NeedInternet)
+                            {
+                                if (InternetConnection)
+                                {
+                                    Logger?.Invoke(this, new LoggerArgs("Програма успішно запущена", ActionResult.Result));
+                                    Result?.Invoke(this, new ResultArgs("Програма успішно запущена"));
 
-                            return true;
+                                    return true;
+                                }
+                                else
+                                {
+                                    Logger?.Invoke(this, new LoggerArgs("Для даного застосування потрібен інтернет, але інтернету немає", ActionResult.Error));
+                                    Error?.Invoke(this, new ErrorArgs("Для даного застосування потрібен інтернет, але інтернету немає", 12, null));
+
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                Logger?.Invoke(this, new LoggerArgs("Програма успішно запущена", ActionResult.Result));
+                                Result?.Invoke(this, new ResultArgs("Програма успішно запущена"));
+
+                                return true;
+                            }
                         }
                         else
                         {
-                            Logger?.Invoke(this, new LoggerArgs("Для даного застосування потрібен інтернет, але інтернету немає", ActionResult.Error));
-                            Error?.Invoke(this, new ErrorArgs("Для даного застосування потрібен інтернет, але інтернету немає", 12, null));
+                            Logger?.Invoke(this, new LoggerArgs("Дане застосування є грою тому воно не запущене", ActionResult.Error));
+                            Error?.Invoke(this, new ErrorArgs("Дане застосування є грою тому воно не запущене", 12, null));
 
                             return false;
                         }
                     }
                     else
                     {
-                        Logger?.Invoke(this, new LoggerArgs("Дане застосування є грою тому воно не запущене", ActionResult.Error));
-                        Error?.Invoke(this, new ErrorArgs("Дане застосування є грою тому воно не запущене", 12, null));
+                        Logger?.Invoke(this, new LoggerArgs("Дане застосування не встановлене", ActionResult.Error));
+                        Error?.Invoke(this, new ErrorArgs("Дане застосування не встановлене", 12, null));
 
                         return false;
                     }
                 }
                 else
                 {
-                    Logger?.Invoke(this, new LoggerArgs("Дане застосування не встановлене", ActionResult.Error));
-                    Error?.Invoke(this, new ErrorArgs("Дане застосування не встановлене", 12, null));
+                    Logger?.Invoke(this, new LoggerArgs("Відеокарта не підтримує можливість роботи з програмою", ActionResult.Error));
+                    Error?.Invoke(this, new ErrorArgs("Відеокарта не підтримує можливість роботи з програмою", 18, videoCard));
 
                     return false;
                 }
@@ -393,37 +398,57 @@ namespace BLL.ComputerSubsystem.Class
         {
             if (ElectricalConnections)
             {
-                if (ROMMemory.IsProgramInstalled(gameName))
+                if (videoCard.CanPlayGame())
                 {
-                    if (ROMMemory.FindProgram(gameName).IsGame)
+                    if (ROMMemory.IsProgramInstalled(gameName))
                     {
-                        if (ROMMemory.FindProgram(gameName).NeedInternet && InternetConnection)
+                        if (ROMMemory.FindProgram(gameName).IsGame)
                         {
-                            Logger?.Invoke(this, new LoggerArgs("Гра успішно запущена", ActionResult.Result));
-                            Result?.Invoke(this, new ResultArgs("Гра успішно запущена"));
+                            if (ROMMemory.FindProgram(gameName).NeedInternet)
+                            {
+                                if (InternetConnection)
+                                {
+                                    Logger?.Invoke(this, new LoggerArgs("Гра успішно запущена", ActionResult.Result));
+                                    Result?.Invoke(this, new ResultArgs("Гра успішно запущена"));
 
-                            return true;
+                                    return true;
+                                }
+                                else
+                                {
+                                    Logger?.Invoke(this, new LoggerArgs("Для даної гри потрібен інтернет, але інтернету немає", ActionResult.Error));
+                                    Error?.Invoke(this, new ErrorArgs("Для даної гри потрібен інтернет, але інтернету немає", 12, null));
+
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                Logger?.Invoke(this, new LoggerArgs("Гра успішно запущена", ActionResult.Result));
+                                Result?.Invoke(this, new ResultArgs("Гра успішно запущена"));
+
+                                return true;
+                            }
                         }
                         else
                         {
-                            Logger?.Invoke(this, new LoggerArgs("Для даної гри потрібен інтернет, але інтернету немає", ActionResult.Error));
-                            Error?.Invoke(this, new ErrorArgs("Для даної гри потрібен інтернет, але інтернету немає", 12, null));
+                            Logger?.Invoke(this, new LoggerArgs("Дане застосування є програмою тому воно не запущене", ActionResult.Error));
+                            Error?.Invoke(this, new ErrorArgs("Дане застосування є програмою тому воно не запущене", 12, null));
 
                             return false;
                         }
                     }
                     else
                     {
-                        Logger?.Invoke(this, new LoggerArgs("Дане застосування є програмою тому воно не запущене", ActionResult.Error));
-                        Error?.Invoke(this, new ErrorArgs("Дане застосування є програмою тому воно не запущене", 12, null));
+                        Logger?.Invoke(this, new LoggerArgs("Дане застосування не встановлене", ActionResult.Error));
+                        Error?.Invoke(this, new ErrorArgs("Дане застосування не встановлене", 12, null));
 
                         return false;
                     }
                 }
                 else
                 {
-                    Logger?.Invoke(this, new LoggerArgs("Дане застосування не встановлене", ActionResult.Error));
-                    Error?.Invoke(this, new ErrorArgs("Дане застосування не встановлене", 12, null));
+                    Logger?.Invoke(this, new LoggerArgs("Відеокарта не підтримує можливість запуску гри", ActionResult.Error));
+                    Error?.Invoke(this, new ErrorArgs("Відеокарта не підтримує можливість запуску гри", 18, videoCard));
 
                     return false;
                 }

@@ -1,5 +1,4 @@
-﻿
-namespace BLL.VideoCardComponent.Interface
+﻿namespace BLL.VideoCardComponent.Interface
 {
     public interface IVideoCard
     {
@@ -12,7 +11,5 @@ namespace BLL.VideoCardComponent.Interface
 
         bool CanPlayGame();
         bool CanWatchVideo();
-        bool CanSearchInternet();
-
     }
 }

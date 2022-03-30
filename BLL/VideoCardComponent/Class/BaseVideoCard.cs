@@ -60,7 +60,6 @@ namespace BLL.VideoCardComponent.Class
 
             return false;
         }
-        public bool CanSearchInternet() { return true; }
         public bool CanWatchVideo()
         {
             if (AmountVideoMemory >= 2048 && GPUPower >= 30)

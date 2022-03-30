@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using BLL.BatteryComponent.Interface;
 using BLL.ComputerPrograms.Interface;
 using BLL.EventArgs;
@@ -46,9 +45,14 @@ namespace BLL.SmartphoneSubsystem.Class
             throw new NotImplementedException();
         }
 
+
         public IVideoCard GetVideoCardInfo() { return videoCard; }
         public IROMMemory OpenRomMemory() { return ROMMemory; }
-
+        public ISoundHeadset GetSoundHeadsetInfo()
+        {
+            Logger?.Invoke(this, new LoggerArgs("Отримати дані про звукову гарнітуру", ActionResult.Message));
+            return soundHeadset;
+        }
 
 
         public bool InstallProgram(IComputerProgram computerProgram)

@@ -24,6 +24,7 @@ namespace BLL.MemoryComponent.Abstract
             else { throw new ArgumentException("Максимальний розмір диску невідповідає вимозі"); }
 
             CurrentMemorySize = 0;
+            computerPrograms = new List<IComputerProgram>();
         }
 
 

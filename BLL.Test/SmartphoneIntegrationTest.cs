@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using Xunit;
 
 namespace BLL.Test
 {
-    public class UnitTest1
+    public class SmartphoneIntegrationTest
     {
         [Fact]
         public void Test1()
