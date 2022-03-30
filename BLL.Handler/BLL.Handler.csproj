@@ -41,11 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Console\ErrorHandler.cs" />
+    <Compile Include="Console\LoggerHandler.cs" />
+    <Compile Include="Console\ResultHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ComputerSystem\" />
-    <Folder Include="SmartphoneSystem\" />
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{da5ffa8a-ce6b-4c05-aebf-cda56da9b6dd}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

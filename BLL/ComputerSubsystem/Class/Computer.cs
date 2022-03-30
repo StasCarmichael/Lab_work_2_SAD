@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+
 using BLL.ComputerPrograms.Interface;
 using BLL.ComputerSubsystem.Interface;
 using BLL.EventArgs;
@@ -259,8 +258,9 @@ namespace BLL.ComputerSubsystem.Class
 
         #endregion
 
-
         //
+        #region Function
+
         public bool SearchInternet(int time)
         {
             if (ElectricalConnections)
@@ -288,7 +288,6 @@ namespace BLL.ComputerSubsystem.Class
                 return false;
             }
         }
-        //
         public bool WatchVideo(int time)
         {
             if (ElectricalConnections)
@@ -316,24 +315,23 @@ namespace BLL.ComputerSubsystem.Class
                 return false;
             }
         }
-
         public bool ListenMusic(int time)
         {
             if (ElectricalConnections)
             {
                 if (soundHeadset.IsUserOnly())
                 {
-                    Logger?.Invoke(this, new LoggerArgs("Відео успішно переглянуте", ActionResult.Result));
-                    Result?.Invoke(this, new ResultArgs("Відео успішно переглянуте"));
+                    Logger?.Invoke(this, new LoggerArgs("Музику слухаєте тільки користувач", ActionResult.Result));
+                    Result?.Invoke(this, new ResultArgs("Музику слухаєте тільки користувач"));
 
                     return true;
                 }
                 else
                 {
-                    Logger?.Invoke(this, new LoggerArgs("Відеокарта не підтримує можливість перегляду відео", ActionResult.Result));
-                    Result?.Invoke(this, new ResultArgs("Відео успішно переглянуте"));
+                    Logger?.Invoke(this, new LoggerArgs("Музику слухають всі хто біля звукової гарнітури", ActionResult.Result));
+                    Result?.Invoke(this, new ResultArgs("Музику слухають всі хто біля звукової гарнітури"));
 
-                    return false;
+                    return true;
                 }
             }
             else
@@ -346,12 +344,100 @@ namespace BLL.ComputerSubsystem.Class
         }
         public bool OpenProgram(string programName, int time)
         {
-            throw new NotImplementedException();
+            if (ElectricalConnections)
+            {
+                if (ROMMemory.IsProgramInstalled(programName))
+                {
+                    if (!ROMMemory.FindProgram(programName).IsGame)
+                    {
+                        if (ROMMemory.FindProgram(programName).NeedInternet && InternetConnection)
+                        {
+                            Logger?.Invoke(this, new LoggerArgs("Програма успішно запущена", ActionResult.Result));
+                            Result?.Invoke(this, new ResultArgs("Програма успішно запущена"));
+
+                            return true;
+                        }
+                        else
+                        {
+                            Logger?.Invoke(this, new LoggerArgs("Для даного застосування потрібен інтернет, але інтернету немає", ActionResult.Error));
+                            Error?.Invoke(this, new ErrorArgs("Для даного застосування потрібен інтернет, але інтернету немає", 12, null));
+
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Дане застосування є грою тому воно не запущене", ActionResult.Error));
+                        Error?.Invoke(this, new ErrorArgs("Дане застосування є грою тому воно не запущене", 12, null));
+
+                        return false;
+                    }
+                }
+                else
+                {
+                    Logger?.Invoke(this, new LoggerArgs("Дане застосування не встановлене", ActionResult.Error));
+                    Error?.Invoke(this, new ErrorArgs("Дане застосування не встановлене", 12, null));
+
+                    return false;
+                }
+            }
+            else
+            {
+                Logger?.Invoke(this, new LoggerArgs("Комп'ютер не підключений до мережі", ActionResult.Error));
+                Error?.Invoke(this, new ErrorArgs("Комп'ютер не підключений до мережі", 50, null));
+
+                return false;
+            }
         }
         public bool StartGame(string gameName, int time)
         {
-            throw new NotImplementedException();
+            if (ElectricalConnections)
+            {
+                if (ROMMemory.IsProgramInstalled(gameName))
+                {
+                    if (ROMMemory.FindProgram(gameName).IsGame)
+                    {
+                        if (ROMMemory.FindProgram(gameName).NeedInternet && InternetConnection)
+                        {
+                            Logger?.Invoke(this, new LoggerArgs("Гра успішно запущена", ActionResult.Result));
+                            Result?.Invoke(this, new ResultArgs("Гра успішно запущена"));
+
+                            return true;
+                        }
+                        else
+                        {
+                            Logger?.Invoke(this, new LoggerArgs("Для даної гри потрібен інтернет, але інтернету немає", ActionResult.Error));
+                            Error?.Invoke(this, new ErrorArgs("Для даної гри потрібен інтернет, але інтернету немає", 12, null));
+
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Дане застосування є програмою тому воно не запущене", ActionResult.Error));
+                        Error?.Invoke(this, new ErrorArgs("Дане застосування є програмою тому воно не запущене", 12, null));
+
+                        return false;
+                    }
+                }
+                else
+                {
+                    Logger?.Invoke(this, new LoggerArgs("Дане застосування не встановлене", ActionResult.Error));
+                    Error?.Invoke(this, new ErrorArgs("Дане застосування не встановлене", 12, null));
+
+                    return false;
+                }
+            }
+            else
+            {
+                Logger?.Invoke(this, new LoggerArgs("Комп'ютер не підключений до мережі", ActionResult.Error));
+                Error?.Invoke(this, new ErrorArgs("Комп'ютер не підключений до мережі", 50, null));
+
+                return false;
+            }
         }
+
+        #endregion
 
     }
 }
