@@ -14,14 +14,44 @@ namespace BLL.SmartphoneSubsystem.Class
 {
     public class Smartphone : ISmartphone
     {
+
+        #region PowerConsumption
+
+        private readonly double powerConsumptionMusic = 1;
+        private readonly double powerConsumptionInternet = 2;
+        private readonly double powerConsumptionVideo = 3.125;
+        private readonly double powerConsumptionProgram = 6.25;
+        private readonly double powerConsumptionGame = 12.5;
+
+        #endregion
+
+
         #region ServiceData
 
+        bool internetConnection;
         bool electricalConnections;
 
         IBattery battery;
         ISoundHeadset soundHeadset;
         IVideoCard videoCard;
         IROMMemory ROMMemory;
+
+        #endregion
+
+
+        #region ServiceMethod
+
+        private void NoConnection()
+        {
+            Logger?.Invoke(this, new LoggerArgs("В смартфона немає живлення, ні від мережі ні від акумулятора", ActionResult.Error));
+            Error?.Invoke(this, new ErrorArgs("В смартфона немає живлення, ні від мережі ні від акумулятора", 80, null));
+        }
+
+        private void NoInternetConnection()
+        {
+            Logger?.Invoke(this, new LoggerArgs("Смартфон не підключений до інтернету", ActionResult.Error));
+            Error?.Invoke(this, new ErrorArgs("Смартфон не підключений до інтернету", 20, null));
+        }
 
         #endregion
 
@@ -51,6 +81,43 @@ namespace BLL.SmartphoneSubsystem.Class
         public int CurrentAmountCharge { get { return battery.CurrentAmountCharge; } }
 
 
+        public bool InternetConnection
+        {
+            get { return internetConnection; }
+            set
+            {
+                if (value == true)
+                {
+                    if (internetConnection == true)
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Інтернет вже підключений", ActionResult.Error));
+                        Error?.Invoke(this, new ErrorArgs("Інтернет вже підключений", 1, null));
+                    }
+                    else
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Підключаємо комп'ютер до інтернету", ActionResult.Result));
+                        Result?.Invoke(this, new ResultArgs("Підключаємо комп'ютер до інтернету"));
+                    }
+
+                    internetConnection = value;
+                }
+                else
+                {
+                    if (internetConnection == false)
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Інтернет вже відключений", ActionResult.Error));
+                        Error?.Invoke(this, new ErrorArgs("Інтернет вже відключений", 1, null));
+                    }
+                    else
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Вимикаємо комп'ютер від інтернету", ActionResult.Result));
+                        Result?.Invoke(this, new ResultArgs("Вимикаємо комп'ютер від інтернету"));
+                    }
+
+                    internetConnection = value;
+                }
+            }
+        }
         public bool ElectricalConnections
         {
             get { return electricalConnections; }
@@ -246,26 +313,288 @@ namespace BLL.SmartphoneSubsystem.Class
 
 
         #region Function
-
+        //
         public bool SearchInternet(int time)
         {
-            throw new NotImplementedException();
+            if (ElectricalConnections || !battery.IsDischarged)
+            {
+                if (InternetConnection)
+                {
+                    if (ElectricalConnections)
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Пошук в інтернті успішно виконаний", ActionResult.Result));
+                        Result?.Invoke(this, new ResultArgs("Пошук в інтернті успішно виконаний"));
+
+                        return true;
+                    }
+                    else if (battery.Unload((int)(time * powerConsumptionInternet)))
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Пошук в інтернті успішно виконаний", ActionResult.Result));
+                        Result?.Invoke(this, new ResultArgs("Пошук в інтернті успішно виконаний"));
+
+                        return true;
+                    }
+                    else
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Пошук в інтернті не виконаний докінця, бо розрядився акумулятор", ActionResult.Error));
+                        Error?.Invoke(this, new ErrorArgs("Пошук в інтернті не виконаний докінця, бо розрядився акумулятор", 100, null));
+
+                        return false;
+                    }
+                }
+                else
+                {
+                    NoInternetConnection();
+                    return false;
+                }
+            }
+            else
+            {
+                NoConnection();
+                return false;
+            }
         }
+        //
         public bool WatchVideo(int time)
         {
-            throw new NotImplementedException();
+            if (ElectricalConnections || !battery.IsDischarged)
+            {
+                if (videoCard.CanWatchVideo())
+                {
+                    if (ElectricalConnections)
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Відео успішно переглянуте", ActionResult.Result));
+                        Result?.Invoke(this, new ResultArgs("Відео успішно переглянуте"));
+
+                        return true;
+                    }
+                    else if (battery.Unload((int)(time * powerConsumptionVideo)))
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Відео успішно переглянуте", ActionResult.Result));
+                        Result?.Invoke(this, new ResultArgs("Відео успішно переглянуте"));
+
+                        return true;
+                    }
+                    else
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Відео переглянути не до кінця, бо розрядився акумулятор", ActionResult.Error));
+                        Error?.Invoke(this, new ErrorArgs("Відео переглянути не до кінця, бо розрядився акумулятор", 100, null));
+
+                        return false;
+                    }
+
+                }
+                else
+                {
+                    Logger?.Invoke(this, new LoggerArgs("Відеокарта не підтримує можливість перегляду відео", ActionResult.Error));
+                    Error?.Invoke(this, new ErrorArgs("Відеокарта не підтримує можливість перегляду відео", 12, videoCard));
+
+                    return false;
+                }
+            }
+            else
+            {
+                NoConnection();
+                return false;
+            }
         }
+        //
         public bool ListenMusic(int time)
         {
-            throw new NotImplementedException();
+            if (ElectricalConnections || !battery.IsDischarged)
+            {
+                if (ElectricalConnections || battery.Unload((int)(time * powerConsumptionMusic)))
+                {
+                    if (soundHeadset.IsUserOnly())
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Музику слухаєте тільки користувач", ActionResult.Result));
+                        Result?.Invoke(this, new ResultArgs("Музику слухаєте тільки користувач"));
+
+                        return true;
+                    }
+                    else
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Музику слухають всі хто біля звукової гарнітури", ActionResult.Result));
+                        Result?.Invoke(this, new ResultArgs("Музику слухають всі хто біля звукової гарнітури"));
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    if (soundHeadset.IsUserOnly())
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Музику слухав тільки користувач, але не дослухав немає заряду акумулятора", ActionResult.Error));
+                        Error?.Invoke(this, new ErrorArgs("Музику слухав тільки користувач, але не дослухав немає заряду акумулятора", 100, null));
+
+                        return false;
+                    }
+                    else
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Музику слухали всі, але акумулятор розрядився", ActionResult.Error));
+                        Error?.Invoke(this, new ErrorArgs("Музику слухали всі, але акумулятор розрядився", 100, null));
+
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                NoConnection();
+                return false;
+            }
         }
+        //
         public bool OpenProgram(string programName, int time)
         {
-            throw new NotImplementedException();
+            if (ElectricalConnections || !battery.IsDischarged)
+            {
+                if (videoCard.CanPlayGame())
+                {
+                    if (ROMMemory.IsProgramInstalled(programName))
+                    {
+                        if (!ROMMemory.FindProgram(programName).IsGame)
+                        {
+                            if (ElectricalConnections || battery.Unload((int)(time * powerConsumptionProgram)))
+                            {
+                                if (ROMMemory.FindProgram(programName).NeedInternet)
+                                {
+                                    if (InternetConnection)
+                                    {
+                                        Logger?.Invoke(this, new LoggerArgs("Програма успішно запущена", ActionResult.Result));
+                                        Result?.Invoke(this, new ResultArgs("Програма успішно запущена"));
+
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        Logger?.Invoke(this, new LoggerArgs("Для даного застосування потрібен інтернет, але інтернету немає", ActionResult.Error));
+                                        Error?.Invoke(this, new ErrorArgs("Для даного застосування потрібен інтернет, але інтернету немає", 12, null));
+
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    Logger?.Invoke(this, new LoggerArgs("Програма успішно запущена", ActionResult.Result));
+                                    Result?.Invoke(this, new ResultArgs("Програма успішно запущена"));
+
+                                    return true;
+                                }
+                            }
+                            else
+                            {
+                                Logger?.Invoke(this, new LoggerArgs("Програма закрилась не закінчив роботи, розрядився акумулятор", ActionResult.Error));
+                                Error?.Invoke(this, new ErrorArgs("Програма закрилась не закінчив роботи, розрядився акумулятор", 100, null));
+
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            Logger?.Invoke(this, new LoggerArgs("Дане застосування є грою тому воно не запущене", ActionResult.Error));
+                            Error?.Invoke(this, new ErrorArgs("Дане застосування є грою тому воно не запущене", 12, null));
+
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Дане застосування не встановлене", ActionResult.Error));
+                        Error?.Invoke(this, new ErrorArgs("Дане застосування не встановлене", 12, null));
+
+                        return false;
+                    }
+                }
+                else
+                {
+                    Logger?.Invoke(this, new LoggerArgs("Відеокарта не підтримує можливість роботи з програмою", ActionResult.Error));
+                    Error?.Invoke(this, new ErrorArgs("Відеокарта не підтримує можливість роботи з програмою", 18, videoCard));
+
+                    return false;
+                }
+            }
+            else
+            {
+                NoConnection();
+                return false;
+            }
         }
+        //
         public bool StartGame(string gameName, int time)
         {
-            throw new NotImplementedException();
+            if (ElectricalConnections || !battery.IsDischarged)
+            {
+                if (videoCard.CanPlayGame())
+                {
+                    if (ROMMemory.IsProgramInstalled(gameName))
+                    {
+                        if (ROMMemory.FindProgram(gameName).IsGame)
+                        {
+                            if (ElectricalConnections || battery.Unload((int)(time * powerConsumptionGame)))
+                            {
+                                if (ROMMemory.FindProgram(gameName).NeedInternet)
+                                {
+                                    if (InternetConnection)
+                                    {
+                                        Logger?.Invoke(this, new LoggerArgs("Гра успішно запущена", ActionResult.Result));
+                                        Result?.Invoke(this, new ResultArgs("Гра успішно запущена"));
+
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        Logger?.Invoke(this, new LoggerArgs("Для даної гри потрібен інтернет, але інтернету немає", ActionResult.Error));
+                                        Error?.Invoke(this, new ErrorArgs("Для даної гри потрібен інтернет, але інтернету немає", 12, null));
+
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    Logger?.Invoke(this, new LoggerArgs("Гра успішно запущена", ActionResult.Result));
+                                    Result?.Invoke(this, new ResultArgs("Гра успішно запущена"));
+
+                                    return true;
+                                }
+                            }
+                            else
+                            {
+                                Logger?.Invoke(this, new LoggerArgs("Гра закрилась не закінчив роботи, розрядився акумулятор", ActionResult.Error));
+                                Error?.Invoke(this, new ErrorArgs("Гра закрилась не закінчив роботи, розрядився акумулятор", 100, null));
+
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            Logger?.Invoke(this, new LoggerArgs("Дане застосування є програмою тому воно не запущене", ActionResult.Error));
+                            Error?.Invoke(this, new ErrorArgs("Дане застосування є програмою тому воно не запущене", 12, null));
+
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        Logger?.Invoke(this, new LoggerArgs("Дане застосування не встановлене", ActionResult.Error));
+                        Error?.Invoke(this, new ErrorArgs("Дане застосування не встановлене", 12, null));
+
+                        return false;
+                    }
+                }
+                else
+                {
+                    Logger?.Invoke(this, new LoggerArgs("Відеокарта не підтримує можливість запуску гри", ActionResult.Error));
+                    Error?.Invoke(this, new ErrorArgs("Відеокарта не підтримує можливість запуску гри", 18, videoCard));
+
+                    return false;
+                }
+            }
+            else
+            {
+                NoConnection();
+                return false;
+            }
         }
 
         #endregion
