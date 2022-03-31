@@ -313,7 +313,7 @@ namespace BLL.SmartphoneSubsystem.Class
 
 
         #region Function
-        //
+
         public bool SearchInternet(int time)
         {
             if (ElectricalConnections || !battery.IsDischarged)
@@ -354,7 +354,6 @@ namespace BLL.SmartphoneSubsystem.Class
                 return false;
             }
         }
-        //
         public bool WatchVideo(int time)
         {
             if (ElectricalConnections || !battery.IsDischarged)
@@ -398,7 +397,6 @@ namespace BLL.SmartphoneSubsystem.Class
                 return false;
             }
         }
-        //
         public bool ListenMusic(int time)
         {
             if (ElectricalConnections || !battery.IsDischarged)
@@ -444,7 +442,6 @@ namespace BLL.SmartphoneSubsystem.Class
                 return false;
             }
         }
-        //
         public bool OpenProgram(string programName, int time)
         {
             if (ElectricalConnections || !battery.IsDischarged)
@@ -520,7 +517,6 @@ namespace BLL.SmartphoneSubsystem.Class
                 return false;
             }
         }
-        //
         public bool StartGame(string gameName, int time)
         {
             if (ElectricalConnections || !battery.IsDischarged)

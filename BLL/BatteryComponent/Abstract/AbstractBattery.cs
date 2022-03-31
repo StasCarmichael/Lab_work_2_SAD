@@ -53,6 +53,7 @@ namespace BLL.BatteryComponent.Abstract
                 return true;
             }
 
+            CurrentAmountCharge = 0;
             return false;
         }
     }
