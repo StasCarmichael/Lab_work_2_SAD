@@ -1,2 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BLL.SmartphoneSubsystem.Class.Smartphone">
+    <Position X="7" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QAAABECIAAYAQQMQQAAIBQUxAgASAEIQgJQAAAiAIQA=</HashCode>
+      <FileName>ElectronicSubsystems\SmartphoneSubsystem\Class\Smartphone.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="videoCard" />
+      <Field Name="soundHeadset" />
+      <Field Name="ROMMemory" />
+      <Field Name="battery" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BLL.ComputerSubsystem.Class.Computer">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAAABEAIAAIAQQEQQAAAAQUxAAACAEAAAJQAAAiAAQA=</HashCode>
+      <FileName>ElectronicSubsystems\ComputerSubsystem\Class\Computer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="videoCard" />
+      <Field Name="soundHeadset" />
+      <Field Name="ROMMemory" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="BLL.SmartphoneSubsystem.Interface.ISmartphone">
+    <Position X="9.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>ElectronicSubsystems\SmartphoneSubsystem\Interface\ISmartphone.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BLL.ComputerSubsystem.Interface.IComputer">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>ElectronicSubsystems\ComputerSubsystem\Interface\IComputer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BLL.VideoCardComponent.Interface.IVideoCard" Collapsed="true">
+    <Position X="4" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAIAAAAAEAAAAgAAAAgAAAA=</HashCode>
+      <FileName>HardwareComponents\VideoCardComponent\Interface\IVideoCard.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BLL.SoundHeadsetComponent.Interface.ISoundHeadset" Collapsed="true">
+    <Position X="4" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAABAgAAAA=</HashCode>
+      <FileName>HardwareComponents\SoundHeadsetComponent\Interface\ISoundHeadset.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BLL.MemoryComponent.Interface.IROMMemory" Collapsed="true">
+    <Position X="4" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAIAAIACCAAAAAAAAAAAAACwAAAAAAQA=</HashCode>
+      <FileName>HardwareComponents\MemoryComponent\Interface\IROMMemory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BLL.BatteryComponent.Interface.IBattery" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAQAAAAAAIAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>HardwareComponents\BatteryComponent\Interface\IBattery.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

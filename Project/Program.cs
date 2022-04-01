@@ -58,15 +58,19 @@ namespace Project
             computer.ListenMusic(800);
             computer.SearchInternet(100);
 
-
             computer.InternetConnection = true;
-
 
             computer.StartGame("CK3", 12);
 
             computer.InstallProgram(new BaseComputerProgram("CK3", 1000, true, false, true));
+            computer.InstallProgram(new BaseComputerProgram("AutoCad", 8050, true, false, false));
 
-            computer.StartGame("CK3", 40);
+            computer.StartGame("CK3", 400);
+
+            computer.InternetConnection = false;
+            computer.OpenProgram("AutoCad", 400);
+            computer.InternetConnection = true;
+            computer.OpenProgram("AutoCad", 400);
         }
         private static void SmartphoneTest()
         {
@@ -100,10 +104,18 @@ namespace Project
 
 
             smartphone.InstallProgram(new BaseComputerProgram("Nemo", 2000, true, false, true));
-            smartphone.InstallProgram(new BaseComputerProgram("Nemo", 2000, true, false, true));
+            smartphone.InstallProgram(new BaseComputerProgram("AutoCad", 8050, true, false, false));
 
+            smartphone.StartGame("AutoCad", 200);
+            smartphone.StartGame("Nemo", 200);
 
+            Console.WriteLine("\nПоточний заряд батарейки = " + smartphone.CurrentAmountCharge + "\n");
 
+            smartphone.SearchInternet(1000);
+
+            Console.WriteLine("\nПоточний заряд батарейки = " + smartphone.CurrentAmountCharge + "\n");
+
+            smartphone.Charge();
         }
 
 
@@ -119,13 +131,13 @@ namespace Project
             {
                 Console.Clear();
 
-
                 Console.WriteLine("Виберіть техніку яку потрібно симулювати.");
                 Console.WriteLine("1 - Симулюємо роботу комп'ютера");
                 Console.WriteLine("2 - Симулюємо роботу смартфону");
                 Console.WriteLine("Будь яка інша клавіша завершити роботу");
                 var keyCode = Console.ReadKey();
                 Console.WriteLine();
+
 
                 switch (keyCode.KeyChar)
                 {
