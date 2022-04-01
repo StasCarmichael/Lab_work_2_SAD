@@ -41,38 +41,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BatteryComponent\Abstract\AbstractBattery.cs" />
-    <Compile Include="BatteryComponent\Class\MidleBattery.cs" />
-    <Compile Include="BatteryComponent\Class\SmallBattery.cs" />
-    <Compile Include="BatteryComponent\Interface\IBattery.cs" />
-    <Compile Include="IElectronicComponentSubsystem\IElectricalConnectable.cs" />
-    <Compile Include="ComputerPrograms\Class\BaseComputerProgram.cs" />
-    <Compile Include="ComputerPrograms\Interface\IComputerProgram.cs" />
-    <Compile Include="ComputerSubsystem\Class\Computer.cs" />
-    <Compile Include="ComputerSubsystem\Interface\IComputer.cs" />
+    <Compile Include="HardwareComponents\BatteryComponent\Abstract\AbstractBattery.cs" />
+    <Compile Include="HardwareComponents\BatteryComponent\Class\MidleBattery.cs" />
+    <Compile Include="HardwareComponents\BatteryComponent\Class\SmallBattery.cs" />
+    <Compile Include="HardwareComponents\BatteryComponent\Interface\IBattery.cs" />
+    <Compile Include="ElectronicSubsystems\IElectronicComponentSubsystem\IElectricalConnectable.cs" />
+    <Compile Include="HardwareComponents\ComputerPrograms\Class\BaseComputerProgram.cs" />
+    <Compile Include="HardwareComponents\ComputerPrograms\Interface\IComputerProgram.cs" />
+    <Compile Include="ElectronicSubsystems\ComputerSubsystem\Class\Computer.cs" />
+    <Compile Include="ElectronicSubsystems\ComputerSubsystem\Interface\IComputer.cs" />
     <Compile Include="EventArgs\ErrorArgs.cs" />
     <Compile Include="EventArgs\IEventLoggerable.cs" />
     <Compile Include="EventArgs\LoggerArgs.cs" />
     <Compile Include="EventArgs\ResultArgs.cs" />
-    <Compile Include="IElectronicComponentSubsystem\IBatteryable.cs" />
-    <Compile Include="IElectronicComponentSubsystem\IInternetConnectable.cs" />
-    <Compile Include="IElectronicComponentSubsystem\IMemoryable.cs" />
-    <Compile Include="IElectronicComponentSubsystem\ISoundHeadsetable.cs" />
-    <Compile Include="IElectronicComponentSubsystem\IVideoCardable.cs" />
-    <Compile Include="IElectronicComponentSubsystem\IWatchable.cs" />
-    <Compile Include="MemoryComponent\Abstract\ROMMemory.cs" />
-    <Compile Include="MemoryComponent\Class\HDD.cs" />
-    <Compile Include="MemoryComponent\Class\SSD.cs" />
-    <Compile Include="MemoryComponent\Interface\IROMMemory.cs" />
+    <Compile Include="ElectronicSubsystems\IElectronicComponentSubsystem\IBatteryable.cs" />
+    <Compile Include="ElectronicSubsystems\IElectronicComponentSubsystem\IInternetConnectable.cs" />
+    <Compile Include="ElectronicSubsystems\IElectronicComponentSubsystem\IMemoryable.cs" />
+    <Compile Include="ElectronicSubsystems\IElectronicComponentSubsystem\ISoundHeadsetable.cs" />
+    <Compile Include="ElectronicSubsystems\IElectronicComponentSubsystem\IVideoCardable.cs" />
+    <Compile Include="ElectronicSubsystems\IElectronicComponentSubsystem\IWatchable.cs" />
+    <Compile Include="HardwareComponents\MemoryComponent\Abstract\ROMMemory.cs" />
+    <Compile Include="HardwareComponents\MemoryComponent\Class\HDD.cs" />
+    <Compile Include="HardwareComponents\MemoryComponent\Class\SSD.cs" />
+    <Compile Include="HardwareComponents\MemoryComponent\Interface\IROMMemory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SmartphoneSubsystem\Class\Smartphone.cs" />
-    <Compile Include="SmartphoneSubsystem\Interface\ISmartphone.cs" />
-    <Compile Include="SoundHeadsetComponent\Class\Headphones.cs" />
-    <Compile Include="SoundHeadsetComponent\Class\Speaker.cs" />
-    <Compile Include="SoundHeadsetComponent\Interface\ISoundHeadset.cs" />
-    <Compile Include="VideoCardComponent\Class\BaseVideoCard.cs" />
-    <Compile Include="VideoCardComponent\Interface\IVideoCard.cs" />
+    <Compile Include="ElectronicSubsystems\SmartphoneSubsystem\Class\Smartphone.cs" />
+    <Compile Include="ElectronicSubsystems\SmartphoneSubsystem\Interface\ISmartphone.cs" />
+    <Compile Include="HardwareComponents\SoundHeadsetComponent\Class\Headphones.cs" />
+    <Compile Include="HardwareComponents\SoundHeadsetComponent\Class\Speaker.cs" />
+    <Compile Include="HardwareComponents\SoundHeadsetComponent\Interface\ISoundHeadset.cs" />
+    <Compile Include="HardwareComponents\VideoCardComponent\Class\BaseVideoCard.cs" />
+    <Compile Include="HardwareComponents\VideoCardComponent\Interface\IVideoCard.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="BLLClassDiagram.cd" />
+    <None Include="ElectronicSubsystems\ElectronicSubsystemsClassDiagram.cd" />
+    <None Include="HardwareComponents\HardwareClassDiagram.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

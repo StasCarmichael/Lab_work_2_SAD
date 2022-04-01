@@ -50,6 +50,10 @@
     <None Include="Properties\App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BLL.Handler\BLL.Handler.csproj">
+      <Project>{554b5507-38fc-4ff4-9627-2860715b62ba}</Project>
+      <Name>BLL.Handler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{da5ffa8a-ce6b-4c05-aebf-cda56da9b6dd}</Project>
       <Name>BLL</Name>

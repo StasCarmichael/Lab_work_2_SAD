@@ -132,7 +132,7 @@ namespace BLL.ComputerSubsystem.Class
             }
         }
 
-        //
+
         #region GetHardware
         //ready
         public IVideoCard GetVideoCardInfo()
@@ -153,7 +153,7 @@ namespace BLL.ComputerSubsystem.Class
 
         #endregion
 
-        //
+
         #region WorkWithProgram
         //ready
         public bool InstallProgram(IComputerProgram computerProgram)
@@ -198,7 +198,7 @@ namespace BLL.ComputerSubsystem.Class
 
         #endregion
 
-        //
+
         #region InstallerHardware
         //ready
         public bool InstallNewVideoCard(IVideoCard videoCard)
@@ -252,7 +252,7 @@ namespace BLL.ComputerSubsystem.Class
 
         #endregion
 
-        //
+
         #region Function
 
         public bool SearchInternet(int time)
@@ -417,7 +417,7 @@ namespace BLL.ComputerSubsystem.Class
                                 else
                                 {
                                     Logger?.Invoke(this, new LoggerArgs("Для даної гри потрібен інтернет, але інтернету немає", ActionResult.Error));
-                                    Error?.Invoke(this, new ErrorArgs("Для даної гри потрібен інтернет, але інтернету немає", 12, null));
+                                    Error?.Invoke(this, new ErrorArgs("Для даної гри потрібен інтернет, але інтернету немає", 12, ROMMemory.FindProgram(gameName)));
 
                                     return false;
                                 }
@@ -433,7 +433,7 @@ namespace BLL.ComputerSubsystem.Class
                         else
                         {
                             Logger?.Invoke(this, new LoggerArgs("Дане застосування є програмою тому воно не запущене", ActionResult.Error));
-                            Error?.Invoke(this, new ErrorArgs("Дане застосування є програмою тому воно не запущене", 12, null));
+                            Error?.Invoke(this, new ErrorArgs("Дане застосування є програмою тому воно не запущене", 12, gameName));
 
                             return false;
                         }
@@ -441,7 +441,7 @@ namespace BLL.ComputerSubsystem.Class
                     else
                     {
                         Logger?.Invoke(this, new LoggerArgs("Дане застосування не встановлене", ActionResult.Error));
-                        Error?.Invoke(this, new ErrorArgs("Дане застосування не встановлене", 12, null));
+                        Error?.Invoke(this, new ErrorArgs("Дане застосування не встановлене", 12, gameName));
 
                         return false;
                     }
