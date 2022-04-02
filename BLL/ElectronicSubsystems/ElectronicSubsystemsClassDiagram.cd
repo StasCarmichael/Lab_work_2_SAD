@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Interface Name="BLL.ComputerSubsystem.Interface.IComputer">
-    <Position X="11.75" Y="6" Width="1.75" />
+    <Position X="11.75" Y="5.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
       <FileName>ElectronicSubsystems\ComputerSubsystem\Interface\IComputer.cs</FileName>
@@ -57,7 +57,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="BLL.SmartphoneSubsystem.Interface.ISmartphone">
-    <Position X="18.25" Y="6" Width="2" />
+    <Position X="18.25" Y="5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
       <FileName>ElectronicSubsystems\SmartphoneSubsystem\Interface\ISmartphone.cs</FileName>

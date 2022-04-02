@@ -52,5 +52,8 @@
       <Name>BLL</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="EventHandlerClassDiagram.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

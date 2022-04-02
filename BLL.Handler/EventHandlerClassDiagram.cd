@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BLL.Handler.Console.ErrorHandler">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Console\ErrorHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.Handler.Console.LoggerHandler">
+    <Position X="5.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Console\LoggerHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.Handler.Console.ResultHandler">
+    <Position X="5.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Console\ResultHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.EventArgs.ErrorArgs">
+    <Position X="12" Y="1.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BLL.EventArgs.LoggerArgs">
+    <Position X="13.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Action" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BLL.EventArgs.ResultArgs">
+    <Position X="10.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="BLL.EventArgs.IEventLoggerable">
+    <Position X="7.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Enum Name="BLL.EventArgs.ActionResult">
+    <Position X="13.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
